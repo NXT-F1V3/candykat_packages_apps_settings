@@ -36,9 +36,17 @@ public class AdvancedSettings extends SettingsPreferenceFragment
 
     private static final String PREF_MEDIA_SCANNER_ON_BOOT = "media_scanner_on_boot";
     private static final String PREF_DEVICESETTINGS_APP = "devicesettings_app";
+    private static final String KERNELTWEAKER_START = "kerneltweaker_start";
 
+    // Package name of the kernel tweaker app
+    public static final String KERNELTWEAKER_PACKAGE_NAME = "com.dsht.kerneltweaker";
+    // Intent for launching the kernel tweaker main actvity
+    public static Intent INTENT_KERNELTWEAKER = new Intent(Intent.ACTION_MAIN)
+            .setClassName(KERNELTWEAKER_PACKAGE_NAME, KERNELTWEAKER_PACKAGE_NAME + ".MainActivity");
+ 
     private PreferenceScreen mDeviceSettingsApp;
     private ListPreference mMsob;
+    private Preference mKernelTweaker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,8 @@ public class AdvancedSettings extends SettingsPreferenceFragment
         mMsob.setOnPreferenceChangeListener(this);
 
         mDeviceSettingsApp = (PreferenceScreen) findPreference(PREF_DEVICESETTINGS_APP);
+	mKernelTweaker = (Preference)
+                prefSet.findPreference(KERNELTWEAKER_START);
 
         if (!deviceSettingsAppExists()) {
             getPreferenceScreen().removePreference(mDeviceSettingsApp);
@@ -86,6 +96,28 @@ public class AdvancedSettings extends SettingsPreferenceFragment
             return true;
         }
         return false;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mKernelTweaker) {
+            startActivity(INTENT_KERNELTWEAKER);
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
 }

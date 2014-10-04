@@ -27,6 +27,12 @@
         android:key="advanced_settings_options_prefs"
         android:title="@string/advanced_options_settings_title">
 
+    <!-- KernelTweaker -->
+    <PreferenceScreen
+        android:key="kerneltweaker_start"
+        android:title="@string/kernel_tweaker"
+        android:icon="@drawable/ic_kernel_tweaker" />
+
         <ListPreference
             android:key="media_scanner_on_boot"
             android:title="@string/media_scanner_on_boot_title"
